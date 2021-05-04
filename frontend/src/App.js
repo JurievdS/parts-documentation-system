@@ -6,6 +6,7 @@ function App() {
   return (
     <Router>
       <main>
+        <Route path="/" component={Dashboard} />
         <Route path="/Dashboard" component={Dashboard} />
       </main>
     </Router>

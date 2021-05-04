@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 // Login User
-export const loginUser = (userData) => async (dispatch) => {
+export const login = (userData) => async (dispatch) => {
   try {
     await api.post("/auth", userData).then((res) => {
       // Isolate token
@@ -17,7 +17,7 @@ export const loginUser = (userData) => async (dispatch) => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      dispatch(SET_CURRENT_USER(decoded));
     });
   } catch (err) {
     dispatch({
