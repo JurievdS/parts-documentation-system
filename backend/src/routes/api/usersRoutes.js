@@ -1,3 +1,8 @@
+/**
+ * @Route: url/api/user
+ * @Desc: User routes
+ */
+
 const Router = require("express").Router();
 const auth = require("../../middleware/auth");
 const {

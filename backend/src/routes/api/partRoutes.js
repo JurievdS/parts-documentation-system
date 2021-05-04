@@ -1,3 +1,7 @@
+/**
+ * @Route: url/api/part
+ * @Desc: Part routes
+ */
 const Router = require("express").Router();
 
 Router.get("/test", (req, res) => {
