@@ -1,6 +1,6 @@
-// Errors
-export const GET_ERRORS = "GET_ERRORS";
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
-
 // User
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL"
+export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST"
+export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS"
+export const USER_LOGOUT = "USER_LOGOUT"
+

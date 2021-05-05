@@ -24,8 +24,8 @@ const { PORT, MONGO_URI } = require("./src/config/config");
     // Logger Middleware
     app.use(morgan('dev'));
     // Body-parser middleware
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
+    // app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
     // Passport middleware
     app.use(passport.initialize());
     // Passport Config
