@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../redux/store";
-import { logoutUser } from "../redux/actions/userActions";
+import { logout } from "../redux/actions/userActions";
 
 // Set up api call
 const api = axios.create({
@@ -21,7 +21,7 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response.status === 401) {
-      store.dispatch(logoutUser);
+      store.dispatch(logout);
     }
     return Promise.reject(err);
   }
