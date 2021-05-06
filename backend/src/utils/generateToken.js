@@ -3,7 +3,7 @@ const { JWT_KEY } = require("../config/config");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, JWT_KEY, {
-    epiresIn: "30d",
+    expiresIn: "30d",
   });
 };
 
