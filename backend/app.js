@@ -1,9 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const api = require("./src/routes/api")
+const { notFound,errorHandler} = require("./src/middleware/errorMiddleware")
 
 // Environment variables
 const { PORT, MONGO_URI } = require("./src/config/config");
@@ -24,7 +24,7 @@ const { PORT, MONGO_URI } = require("./src/config/config");
     // Logger Middleware
     app.use(morgan('dev'));
     // Body-parser middleware
-    // app.use(express.urlencoded({ extended: false }));
+    app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     // Passport middleware
     app.use(passport.initialize());
