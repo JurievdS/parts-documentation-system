@@ -5,10 +5,11 @@ import Loader from "../components/Loader";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import { login } from "../redux/actions/userActions";
+import "../css/Login.css"
 
 const Login = ({ location, history }) => {
-  const [ username, setUsername ] = useState("");
-  const [ password, setPassword ] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
 
@@ -25,12 +26,14 @@ const Login = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login(username, password));
+    const loginData = {username, password}
+    dispatch(login(loginData));
   };
 
   return (
+    <div className="login-width center">
     <FormContainer>
-      <h1>Login</h1>
+      <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -52,9 +55,12 @@ const Login = ({ location, history }) => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant></Button>
+        <Button type="submit" variant="primary">
+          Sign In
+        </Button>
       </Form>
     </FormContainer>
+    </div>
   );
 };
 
