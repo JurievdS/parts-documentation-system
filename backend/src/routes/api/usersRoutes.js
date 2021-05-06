@@ -18,7 +18,7 @@ Router.get("/test", (req, res) => {
 });
 
 Router.get("/", auth, getUsers);
-Router.post("/", createUser);
+Router.post("/new", createUser);
 Router.get("/:id", auth, getUser);
 Router.put("/:id/changePassword", auth, changePassword);
 Router.put("/:id/updateUser", auth, updateUser);
