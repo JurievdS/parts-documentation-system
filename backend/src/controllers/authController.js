@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = require("../models/User");
-const { JWT_KEY } = require("../config/config");
 const { validateLogin } = require("../validation/userValidations");
 const generateToken = require("../utils/generateToken");
 
@@ -14,7 +13,7 @@ function login(req, res) {
   // Check validation
   if (!isValid) {
     console.log(errors);
-    return res.status(400).json(errors);
+    return res.status(401).json(errors);
   }
 
   const username = req.body.username.trim();
@@ -39,13 +38,14 @@ function login(req, res) {
       bcrypt.compare(password, user.password).then((isMatch) => {
         // User Matched
         if (isMatch) {
-          // Create JWT Payload
-          res.json({
+          const data = {
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             token: generateToken(user._id),
-          });
+          };
+          // Create JWT Payload
+          res.json(data);
         } else {
           errors.password = "Password incorrect";
           return res.status(400).json(errors);
@@ -70,6 +70,6 @@ function authToken(req, res) {
 }
 
 module.exports = {
-  login: login,
-  authToken: authToken,
+  login,
+  authToken,
 };
