@@ -1,18 +1,18 @@
-import react from "react"
+import react from "react";
 import Message from "../components/Message";
+import {useSelector} from "react-redux";
 
+export const LoginErrorHelper = () => {
+  const userLogin = useSelector((state) => state.userLogin)
+  const {error} = userLogin
+  console.log(error);
+  const {username, password, accountStatus} = error
 
-export const loginErrorHelper = (error) => {
-    
-        if (error.username && error.password && error.accpountStatus){
-            return(
-                <Message variant="danger">{error.username}</Message>
-                <Message variant="danger">{error.username}</Message>
-                <Message variant="danger">{error.username}</Message>
-
-
-
-            )
-        }
-
-}
+  return (
+    <>
+      {username && <Message variant="danger">{username}</Message>}
+      {password && <Message variant="danger">{password}</Message>}
+      {accountStatus && <Message variant="danger">{accountStatus}</Message>}
+    </>
+  );
+};

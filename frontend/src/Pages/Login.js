@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import {LoginErrorHelper as ErrorMessage} from "../components/LoginErrorHelper"
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import { login } from "../redux/actions/userActions";
@@ -14,7 +15,7 @@ const Login = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { error, loading, userInfo } = userLogin;
 
   const redirect = "/";
 
@@ -34,7 +35,8 @@ const Login = ({ location, history }) => {
     <div className="login-width center">
     <FormContainer>
       <h1>Sign In</h1>
-      {error && <Message variant="danger">{error}</Message>}
+      {error && <ErrorMessage/>}
+      {/* {error && <Message variant="danger">{error}</Message>} */}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="username">
@@ -50,7 +52,7 @@ const Login = ({ location, history }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Username"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
