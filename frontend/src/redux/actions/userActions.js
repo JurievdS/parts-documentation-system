@@ -7,41 +7,34 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT
+  USER_LOGOUT,
 } from "./types";
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (loginData) => async (dispatch) => {
+  dispatch({
+    type: USER_LOGIN_REQUEST,
+  });
+
+  let data = null;
   try {
-    dispatch({
-      type: USER_LOGIN_REQUEST,
+    await api.post("/auth/login", loginData).then((res) => {
+      data = res.data;
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
     });
+    console.log(data);
 
-    const config = {
-      headers: {
-        "Content-Type": "applcation/json",
-      },
-    };
-
-    const { data } = await axios.post(
-      "/api/users/login",
-      { email, password },
-      config
-    );
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
+    const resError = error.response.data;
+  
+    console.log(resError);
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: resError,
     });
   }
 };
@@ -56,6 +49,6 @@ export const setCurrentUser = (decoded) => {
 
 // Log user out
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("userInfo")
-  dispatch({ type: USER_LOGOUT })
+  localStorage.removeItem("userInfo");
+  dispatch({ type: USER_LOGOUT });
 };
